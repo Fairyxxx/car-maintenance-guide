@@ -1,0 +1,30 @@
+.DS_Store
+Thumbs.db
+
+# Local IDE and WeChat DevTools state
+.vscode/
+project.private.config.json
+
+# Local agent/task history
+.workbuddy/
+open-source-sanitized/
+
+# Dependencies and generated output
+node_modules/
+miniprogram_npm/
+dist/
+build/
+unpackage/
+
+# Temporary verification files
+*.tmp.js
+verify_*
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.mobileprovision

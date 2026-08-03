@@ -1,0 +1,157 @@
+<view class="page">
+  <view wx:if="{{editMode}}" class="edit-banner">
+    <text class="eb-label">正在编辑</text>
+    <text class="eb-name">{{editName}}</text>
+  </view>
+
+  <!-- ① 选择车型：搜索 + 品牌分组 -->
+  <view class="section-title">① 选择车型</view>
+  <view wx:if="{{!manualMode}}">
+    <view class="search-bar">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索品牌或车系，如「比亚迪」「Model 3」"
+        placeholder-class="search-ph"
+        value="{{keyword}}"
+        bindinput="onSearch"
+      />
+    </view>
+
+    <view class="model-list">
+      <view wx:for="{{groups}}" wx:key="brand" class="brand-group">
+        <view class="brand-head">{{item.brand}}</view>
+        <view class="brand-items">
+          <view
+            wx:for="{{item.items}}"
+            wx:for-item="m"
+            wx:key="id"
+            class="model {{selected && selected.id === m.id ? 'active' : ''}}"
+            data-id="{{m.id}}"
+            bindtap="selectModel"
+          >
+            <view class="model-name">{{m.series}}</view>
+            <view class="model-engine">{{m.engine}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{groups.length === 0}}" class="center muted" style="padding:60rpx 0;">
+        没有找到匹配的车型
+      </view>
+    </view>
+
+    <view class="manual-link" bindtap="toggleManual" wx:if="{{!editMode}}">
+      我的车型不在列表里？手动添加 ›
+    </view>
+  </view>
+
+  <!-- ① 手动建档兜底：车型不在预设列表时填写品牌/车系并选择动力类型 -->
+  <view wx:elif="{{manualMode}}" class="manual-entry card">
+    <view class="manual-entry-hd">
+      <text class="manual-entry-title">手动添加车辆</text>
+      <text class="manual-entry-back" bindtap="toggleManual">返回车型选择</text>
+    </view>
+    <view class="field">
+      <text class="label">品牌</text>
+      <input class="input" placeholder="如 雷克萨斯" value="{{manualBrand}}" bindinput="onManualBrand" />
+    </view>
+    <view class="divider"></view>
+    <view class="field">
+      <text class="label">车系</text>
+      <input class="input" placeholder="如 ES 260" value="{{manualSeries}}" bindinput="onManualSeries" />
+    </view>
+    <view class="divider"></view>
+    <view class="field col">
+      <text class="label">动力类型</text>
+      <view class="pt-row">
+        <view class="pt {{manualPowertrain === 'fuel' ? 'on' : ''}}" data-pt="fuel" bindtap="pickPowertrain">燃油</view>
+        <view class="pt {{manualPowertrain === 'ev' ? 'on' : ''}}" data-pt="ev" bindtap="pickPowertrain">纯电</view>
+        <view class="pt {{manualPowertrain === 'range_ext' ? 'on' : ''}}" data-pt="range_ext" bindtap="pickPowertrain">增程</view>
+      </view>
+    </view>
+    <view class="manual-note muted">未收录的车型按对应动力类型的通用保养参考推算，结论会标注「非专属手册」。</view>
+  </view>
+
+  <!-- ② 填写里程 -->
+  <view id="step2" class="section-title">② 填写里程</view>
+  <view class="card form">
+    <view class="field">
+      <text class="label">当前里程</text>
+      <input
+        class="input"
+        type="number"
+        placeholder="例如 38000"
+        value="{{currentKm}}"
+        bindinput="onKm"
+      />
+      <text class="unit">km</text>
+    </view>
+    <view class="divider"></view>
+    <view class="field">
+      <text class="label">上次换机油里程<text class="opt">（选填）</text></text>
+      <input
+        class="input"
+        type="number"
+        placeholder="看挡风玻璃贴纸"
+        value="{{lastOilKm}}"
+        bindinput="onOil"
+      />
+      <text class="unit">km</text>
+    </view>
+    <view class="divider"></view>
+    <view class="field">
+      <text class="label">购车日期<text class="opt">（选填）</text></text>
+      <picker mode="date" value="{{purchaseDate}}" bindchange="onDate">
+        <view class="picker {{purchaseDate ? '' : 'placeholder'}}">
+          {{purchaseDate || '用于推算其他项目'}}
+        </view>
+      </picker>
+    </view>
+    <view class="divider"></view>
+    <view class="field">
+      <text class="label">年款<text class="opt">（选填）</text></text>
+      <picker mode="date" fields="year" value="{{year || ''}}" bindchange="onYear">
+        <view class="picker {{year ? '' : 'placeholder'}}">
+          {{year ? year + '款' : '如 2021（不填则按通用推算）'}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- ③ 用车工况 -->
+  <view class="section-title">③ 用车工况<text class="opt">（影响更换周期）</text></view>
+  <view class="usage">
+    <view class="usage-item" data-key="urban" bindtap="toggleUsage">
+      <view class="usage-check {{usage.urban ? 'on' : ''}}">✓</view>
+      <view>
+        <view class="usage-name">市区通勤</view>
+        <view class="muted tiny">拥堵、频繁启停</view>
+      </view>
+    </view>
+    <view class="usage-item" data-key="shortTrip" bindtap="toggleUsage">
+      <view class="usage-check {{usage.shortTrip ? 'on' : ''}}">✓</view>
+      <view>
+        <view class="usage-name">短途行驶</view>
+        <view class="muted tiny">单程 &lt; 5 公里</view>
+      </view>
+    </view>
+    <view class="usage-item" data-key="dusty" bindtap="toggleUsage">
+      <view class="usage-check {{usage.dusty ? 'on' : ''}}">✓</view>
+      <view>
+        <view class="usage-name">多尘/恶劣路况</view>
+        <view class="muted tiny">工地、土路</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="tip">只填「当前里程 + 上次换机油里程」即可生成报告，其余按规则集推算并标注。</view>
+
+  <privacy-modal />
+
+  <view class="action-bar">
+    <button class="btn-primary" bindtap="submit" disabled="{{submitting}}">
+      {{submitting ? (editMode ? '保存中…' : '生成报告中…') : (editMode ? '保存修改' : '生成保养体检')}}
+    </button>
+  </view>
+</view>

@@ -1,0 +1,79 @@
+<view class="page">
+  <view class="hero card">
+    <view class="hero-glow"></view>
+    <view class="hero-row">
+      <view class="hero-titles">
+        <view class="hero-title">保养指南</view>
+        <view class="hero-sub">该换的别漏 · 不该换的别花冤枉钱</view>
+      </view>
+      <view class="hero-badge">中立第三方</view>
+    </view>
+    <view class="hero-trust">
+      <text class="trust">🛡 数据存本机</text>
+      <text class="trust">🔒 不上传云端</text>
+      <text class="trust">🔍 不采集隐私</text>
+    </view>
+  </view>
+
+  <view wx:if="{{loading && vehicles.length === 0}}" class="center muted loading">加载中…</view>
+
+  <block wx:elif="{{vehicles.length === 0}}">
+    <view class="empty card">
+      <view class="empty-icon">//</view>
+      <view class="empty-title">还没有添加车辆</view>
+      <view class="empty-desc muted">添加车辆后，立即生成专属保养体检报告</view>
+      <button class="btn-primary" bindtap="goAdd">添加我的第一辆车</button>
+      <view class="empty-trust tiny muted">数据保存在你的手机，不上传任何服务器</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="section-title">我的车辆（{{vehicles.length}}）</view>
+
+    <view
+      wx:for="{{vehicles}}"
+      wx:key="_id"
+      class="vcard card"
+      data-id="{{item._id}}"
+      bindtap="goChecklist"
+      hover-class="hover"
+    >
+      <view class="vcard-top">
+        <view class="vcard-main">
+          <view class="vcard-name">{{item.brand}} {{item.series}}{{item.year ? ' ' + item.year + '款' : ''}}</view>
+          <view class="vcard-engine">{{item.engine}}</view>
+          <view class="vcard-km">{{item.kmText}}</view>
+        </view>
+        <view
+          wx:if="{{item.hasHealth}}"
+          class="gauge-sm gauge-sm-{{item.healthLevel}}"
+          style="background: conic-gradient({{item.healthColor}} {{item.healthScore}}%, rgba(255,255,255,0.06) 0);"
+        >
+          <view class="gauge-sm-inner">
+            <text class="gauge-sm-score">{{item.healthScore}}</text>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{item.statusHint}}" class="vcard-status {{item.alerts ? 'alert' : ''}}">
+        <text class="vcard-status-text">{{item.statusHint}}</text>
+        <text wx:if="{{item.hasHealth}}" class="vcard-health-tag {{item.healthLevel}}">{{item.healthLabel}}</text>
+      </view>
+      <view wx:if="{{item.nextDueText}}" class="vcard-nextdue {{item.nextDueStatus}}">
+        <text class="vcard-nextdue-dot"></text>
+        <text class="vcard-nextdue-text">最近：{{item.nextDueText}}</text>
+      </view>
+      <view class="vcard-actions">
+        <view class="vcard-cta" catchtap="goChecklist" data-id="{{item._id}}">
+          <text class="cta-dot"></text>
+          <text>查看保养体检</text>
+        </view>
+        <view class="vcard-edit" catchtap="goEdit" data-id="{{item._id}}">编辑</view>
+      </view>
+    </view>
+
+    <button class="btn-ghost add-btn" bindtap="goAdd">+ 添加车辆</button>
+  </block>
+
+  <privacy-modal />
+  <onboarding-guide />
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "保养花费",
+  "usingComponents": {
+    "privacy-modal": "../../components/privacy-modal/privacy-modal"
+  }
+}

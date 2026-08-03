@@ -1,0 +1,68 @@
+<view class="page" wx:if="{{item}}">
+  <view class="card head">
+    <view class="title-row">
+      <text class="name">{{item.name}}</text>
+      <status-tag status="{{item.status}}" />
+    </view>
+    <view class="status-text {{item.status}}">{{statusText}}</view>
+  </view>
+
+  <block wx:if="{{item.status !== 'skip'}}">
+    <view class="card metrics">
+      <view class="metric" wx:if="{{item.remainingKm !== null}}">
+        <view class="metric-val">{{item.remainingKmText}}</view>
+        <view class="metric-lbl">预计还能跑</view>
+      </view>
+      <view class="metric">
+        <view class="metric-val">{{item.drivenBy === 'mileage' ? '里程' : '时间'}}</view>
+        <view class="metric-lbl">先到者</view>
+      </view>
+    </view>
+
+    <view class="card prog">
+      <view class="prog-head">
+        <text class="prog-lbl">已用周期</text>
+        <text class="prog-pct {{item.status}}">{{isOverdue ? '已超期' : progressPct + '%'}}</text>
+      </view>
+      <view class="prog-track">
+        <view class="prog-fill {{item.status}}" style="width: {{isOverdue ? 100 : progressPct}}%"></view>
+      </view>
+    </view>
+
+    <view class="card facts">
+      <view class="fact" wx:if="{{item.lastServiceKm !== null}}">
+        <text class="fact-lbl">上次更换里程</text>
+        <text class="fact-val">{{item.lastServiceKmText}}</text>
+      </view>
+      <view class="fact" wx:if="{{item.lastServiceDate}}">
+        <text class="fact-lbl">上次更换日期</text>
+        <text class="fact-val">{{item.lastServiceDate}}</text>
+      </view>
+      <view class="fact">
+        <text class="fact-lbl">结论依据</text>
+        <text class="fact-val">{{confText}}</text>
+      </view>
+      <view class="fact" wx:if="{{manual}}">
+        <text class="fact-lbl">参考手册</text>
+        <text class="fact-val">{{manual.title}}</text>
+      </view>
+    </view>
+  </block>
+
+  <view class="card note">
+    <view class="note-title">为什么这么判断</view>
+    <view class="note-body">{{item.note}}</view>
+  </view>
+
+  <view class="card related" wx:if="{{relatedArticle}}" bindtap="goRelated" hover-class="hover">
+    <view class="related-lbl">相关避坑</view>
+    <view class="related-title">{{relatedArticle.title}}</view>
+    <view class="related-go">读一读 ›</view>
+  </view>
+
+  <view class="tiny muted" style="margin: 24rpx 12rpx; line-height:1.6;">
+    {{footer}}
+  </view>
+
+  <privacy-modal />
+</view>

@@ -1,0 +1,14 @@
+<view class="privacy-mask" wx:if="{{show}}" catchtap="noop">
+  <view class="privacy-sheet">
+    <view class="p-title">隐私保护指引</view>
+    <view class="p-body">
+      我们非常重视你的隐私。使用前请阅读
+      <text class="p-link" catchtap="openContract">《保养指南隐私政策》</text>
+      。我们会收集你主动填写的车型、里程及保养记录，用于生成保养建议；数据存储于本机本地，不上传任何服务器，仅本人可见，你可随时删除。
+    </view>
+    <view class="p-actions">
+      <button class="p-btn p-cancel" bindtap="onReject">暂不使用</button>
+      <button class="p-btn p-agree" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="onAgree">同意并继续</button>
+    </view>
+  </view>
+</view>

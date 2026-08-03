@@ -1,0 +1,265 @@
+/* subpackages/cost/index.wxss —— 保养花费看板（霓虹主题，与既有页面一致） */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.14), rgba(139, 92, 246, 0.16));
+  border-color: rgba(0, 240, 255, 0.28);
+  box-shadow: 0 0 28rpx rgba(0, 240, 255, 0.1), inset 0 1rpx 0 rgba(255, 255, 255, 0.05);
+}
+.hero-glow {
+  position: absolute;
+  top: -120rpx;
+  right: -80rpx;
+  width: 360rpx;
+  height: 360rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.28), transparent 70%);
+  pointer-events: none;
+}
+.hero-titles {
+  min-width: 0;
+}
+.hero-title {
+  font-size: 40rpx;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 23rpx;
+  color: var(--text-2);
+  margin-top: 8rpx;
+}
+.stats {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 24rpx;
+}
+.stat {
+  flex: 1;
+  background: rgba(2, 6, 23, 0.45);
+  border: 1rpx solid rgba(255, 255, 255, 0.05);
+  border-radius: 14rpx;
+  padding: 20rpx 12rpx;
+  text-align: center;
+}
+.stat-num {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--c-primary);
+  font-family: "DIN Alternate", "SF Pro Display", "PingFang SC", sans-serif;
+  text-shadow: 0 0 16rpx rgba(0, 240, 255, 0.3);
+  line-height: 1.1;
+}
+.stat-lbl {
+  font-size: 21rpx;
+  color: var(--text-2);
+  margin-top: 8rpx;
+  letter-spacing: 0.04em;
+}
+
+/* 近 6 月支出柱状图：纯 WXML/CSS 实现，零依赖、零后端 */
+.chart {
+  padding: 28rpx 22rpx 22rpx;
+}
+.chart-empty {
+  padding: 40rpx 0;
+  text-align: center;
+  font-size: 23rpx;
+}
+.bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10rpx;
+  height: 280rpx;
+}
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  min-width: 0;
+}
+.bar-amt {
+  font-size: 19rpx;
+  color: var(--text-2);
+  font-family: "DIN Alternate", "SF Pro Display", "PingFang SC", sans-serif;
+  margin-bottom: 8rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.bar-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.bar {
+  width: 60%;
+  min-height: 4rpx;
+  border-radius: 10rpx 10rpx 4rpx 4rpx;
+  background: linear-gradient(180deg, #00f0ff 0%, #8b5cf6 100%);
+  box-shadow: 0 0 18rpx rgba(0, 240, 255, 0.28);
+  transition: height 0.4s ease;
+}
+.bar-lbl {
+  font-size: 20rpx;
+  color: var(--text-3);
+  margin-top: 10rpx;
+}
+
+/* 花费明细 */
+.crow {
+  margin-bottom: 16rpx;
+  position: relative;
+  overflow: hidden;
+}
+.crow-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.crow-amt {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: var(--text);
+  font-family: "DIN Alternate", "SF Pro Display", "PingFang SC", sans-serif;
+}
+.crow-del {
+  font-size: 23rpx;
+  color: var(--c-overdue);
+  padding: 6rpx 18rpx;
+  border: 1rpx solid rgba(255, 77, 109, 0.35);
+  border-radius: 999rpx;
+}
+.crow-del:active {
+  background: rgba(255, 77, 109, 0.12);
+}
+.crow-meta {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  margin-top: 10rpx;
+}
+.crow-date {
+  font-size: 24rpx;
+  color: var(--text-2);
+  font-family: "DIN Alternate", "SF Pro Display", "PingFang SC", sans-serif;
+}
+.crow-km {
+  font-size: 23rpx;
+  color: var(--c-primary);
+  font-weight: 600;
+}
+.crow-shop {
+  font-size: 23rpx;
+  color: var(--text-2);
+  margin-top: 10rpx;
+}
+.crow-note {
+  font-size: 22rpx;
+  margin-top: 8rpx;
+  line-height: 1.5;
+}
+
+.empty {
+  padding: 60rpx 0;
+}
+
+/* 记一笔弹层（与体检页同款底部抽屉） */
+.modal-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(2, 6, 23, 0.72);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4rpx);
+}
+.modal {
+  width: 100%;
+  background: var(--bg-elevated);
+  border-top-left-radius: 24rpx;
+  border-top-right-radius: 24rpx;
+  border: 1rpx solid var(--line);
+  border-bottom: none;
+  padding: 32rpx 28rpx calc(32rpx + env(safe-area-inset-bottom));
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 -8rpx 40rpx rgba(0, 0, 0, 0.4);
+}
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: var(--text);
+}
+.modal-sub {
+  font-size: 22rpx;
+  color: var(--text-2);
+  margin-top: 8rpx;
+  margin-bottom: 20rpx;
+  line-height: 1.5;
+}
+.field {
+  display: flex;
+  align-items: center;
+  min-height: 92rpx;
+}
+.field.col {
+  align-items: center;
+}
+.label {
+  width: 200rpx;
+  font-size: 26rpx;
+  color: var(--text-2);
+  flex: none;
+}
+.input {
+  flex: 1;
+  text-align: right;
+  font-size: 28rpx;
+  color: var(--text);
+}
+.unit {
+  width: 56rpx;
+  text-align: right;
+  color: var(--text-2);
+  font-size: 24rpx;
+  flex: none;
+}
+.divider {
+  height: 2rpx;
+  background: var(--line);
+}
+.picker {
+  flex: 1;
+  text-align: right;
+  font-size: 26rpx;
+  color: var(--text);
+}
+.picker.placeholder {
+  color: var(--text-3);
+}
+.modal-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 28rpx;
+}
+
+/* 底部固定操作栏让出空间 */
+.page {
+  padding-bottom: 160rpx;
+}

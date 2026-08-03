@@ -1,0 +1,18 @@
+.tag {
+  display: inline-block;
+  padding: 4rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.tag.small {
+  font-size: 18rpx;
+  padding: 2rpx 12rpx;
+}
+.overdue { color: #ffcbd3; background: rgba(255, 77, 109, 0.18); border: 1rpx solid rgba(255, 77, 109, 0.35); box-shadow: 0 0 12rpx rgba(255, 77, 109, 0.18); }
+.soon   { color: #fef3c7; background: rgba(251, 191, 36, 0.15); border: 1rpx solid rgba(251, 191, 36, 0.3); box-shadow: 0 0 12rpx rgba(251, 191, 36, 0.12); }
+.ok     { color: #d1fae5; background: rgba(52, 211, 153, 0.15); border: 1rpx solid rgba(52, 211, 153, 0.3); box-shadow: 0 0 12rpx rgba(52, 211, 153, 0.12); }
+.skip   { color: #cbd5e1; background: rgba(100, 116, 139, 0.15); border: 1rpx solid rgba(100, 116, 139, 0.3); }

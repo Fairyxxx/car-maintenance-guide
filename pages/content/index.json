@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "保养避坑",
+  "usingComponents": {
+    "privacy-modal": "../../components/privacy-modal/privacy-modal"
+  }
+}

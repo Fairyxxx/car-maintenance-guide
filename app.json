@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/vehicle-add/vehicle-add",
+    "pages/checklist/checklist",
+    "pages/item-detail/item-detail",
+    "pages/content/index",
+    "pages/profile/index",
+    "pages/privacy/privacy"
+  ],
+  "subpackages": [
+    {
+      "root": "subpackages/settings",
+      "pages": ["index"]
+    },
+    {
+      "root": "subpackages/cost",
+      "pages": ["index"]
+    }
+  ],
+  "preloadRule": {
+    "pages/profile/index": {
+      "network": "all",
+      "packages": ["subpackages/settings"]
+    }
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#0a0e17",
+    "navigationBarTitleText": "\u4fdd\u517b\u6307\u5357",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#080b14",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#475569",
+    "selectedColor": "#00f0ff",
+    "backgroundColor": "#0a0e17",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "\u6211\u7684\u8f66",
+        "iconPath": "assets/tab/car.png",
+        "selectedIconPath": "assets/tab/car_active.png"
+      },
+      {
+        "pagePath": "pages/content/index",
+        "text": "\u907f\u5751",
+        "iconPath": "assets/tab/avoid.png",
+        "selectedIconPath": "assets/tab/avoid_active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "\u6211\u7684",
+        "iconPath": "assets/tab/user.png",
+        "selectedIconPath": "assets/tab/user_active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "__usePrivacyCheck__": true,
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,67 @@
+<view class="page">
+  <!-- 跨车仪表盘：车辆数 / 累计保养花费 / 待处理项，纯本地可算 -->
+  <view class="dash">
+    <view class="dash-card">
+      <view class="dash-num">{{vehicleCount}}</view>
+      <view class="dash-lbl">我的车辆</view>
+    </view>
+    <view class="dash-card">
+      <view class="dash-num">{{totalCostText}}</view>
+      <view class="dash-lbl">累计保养花费</view>
+    </view>
+    <view class="dash-card {{alerts > 0 ? 'alert' : ''}}">
+      <view class="dash-num">{{alerts}}</view>
+      <view class="dash-lbl">待处理项</view>
+    </view>
+  </view>
+
+  <view class="section-title">我的车辆（{{vehicles.length}}）</view>
+
+  <view wx:if="{{vehicles.length === 0}}" class="empty muted center">还没有车辆，先去添加一辆</view>
+
+  <view
+    wx:for="{{vehicles}}"
+    wx:key="_id"
+    class="vrow card {{selId === item._id ? 'active' : ''}}"
+    data-id="{{item._id}}"
+    bindtap="onSel"
+  >
+    <view class="vrow-main">
+      <view class="vrow-name">{{item.brand}} {{item.series}}{{item.year ? ' ' + item.year + '款' : ''}}</view>
+      <view class="vrow-km">{{item.kmText}}</view>
+    </view>
+    <view class="vrow-actions">
+      <view class="vrow-edit" catchtap="onEdit" data-id="{{item._id}}">编辑</view>
+      <view class="vrow-del" catchtap="onDelete" data-id="{{item._id}}" data-name="{{item.brand}} {{item.series}}">删除</view>
+    </view>
+  </view>
+
+  <button class="btn-ghost add-btn" bindtap="goAdd">+ 添加车辆</button>
+
+  <view class="section-title">记账</view>
+  <view class="entry" bindtap="goCost">
+    <text class="entry-label">保养花费</text>
+    <text class="entry-arrow">›</text>
+  </view>
+
+  <view class="section-title">更新里程</view>
+  <view class="card form">
+    <view class="field">
+      <text class="label">当前里程</text>
+      <input class="input" type="number" placeholder="新里程" value="{{km}}" bindinput="onKm" />
+      <text class="unit">km</text>
+    </view>
+    <button class="btn-primary save" bindtap="save">保存并更新体检</button>
+  </view>
+
+  <view class="entry" bindtap="goSettings">
+    <text class="entry-label">设置与隐私</text>
+    <text class="entry-arrow">›</text>
+  </view>
+
+  <view class="tiny muted" style="margin: 24rpx 12rpx; line-height:1.6;">
+    里程是判定「该不该换」的核心依据。每次保养或年检后更新一次，结论会自动刷新。
+  </view>
+
+  <privacy-modal />
+</view>

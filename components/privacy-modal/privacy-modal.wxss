@@ -1,0 +1,76 @@
+.privacy-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(2, 6, 23, 0.72);
+  backdrop-filter: blur(4rpx);
+  z-index: 900;
+  display: flex;
+  align-items: flex-end;
+}
+
+.privacy-sheet {
+  width: 100%;
+  background: var(--bg-elevated, #0f172a);
+  border-top: 2rpx solid var(--card-border, rgba(0, 240, 255, 0.12));
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 40rpx 32rpx calc(40rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -8rpx 40rpx rgba(0, 0, 0, 0.5);
+}
+
+.p-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text, #f8fafc);
+}
+
+.p-body {
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: var(--text-2, #94a3b8);
+}
+
+.p-link {
+  color: var(--c-primary, #00f0ff);
+  font-weight: 600;
+}
+
+.p-actions {
+  margin-top: 36rpx;
+  display: flex;
+  gap: 20rpx;
+}
+
+.p-btn {
+  flex: 1;
+  height: 84rpx;
+  line-height: 84rpx;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+}
+.p-btn::after {
+  border: none;
+}
+
+.p-cancel {
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-2, #94a3b8);
+}
+.p-cancel::after {
+  border: none;
+}
+
+.p-agree {
+  background: linear-gradient(135deg, #00f0ff 0%, #0ea5e9 100%);
+  color: #020617;
+  box-shadow: 0 4rpx 20rpx rgba(0, 240, 255, 0.22);
+}
+.p-agree::after {
+  border: none;
+}

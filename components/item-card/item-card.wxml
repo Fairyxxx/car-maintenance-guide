@@ -1,0 +1,19 @@
+<view class="item-card {{item.status}}" bindtap="onTap" hover-class="hover">
+  <view class="row">
+    <text class="name">{{item.name}}</text>
+    <status-tag status="{{item.status}}" size="small" />
+  </view>
+
+  <view wx:if="{{showProgress && item.status !== 'skip'}}" class="progress-wrap">
+    <view class="bar bar-{{item.status}}" style="width: {{item.progressPct}}%"></view>
+  </view>
+
+  <view wx:if="{{showProgress && item.status !== 'skip'}}" class="meta">
+    <text wx:if="{{item.status !== 'ok' && item.remainingKm !== null && item.remainingKm > 0}}">剩余约 {{item.remainingKmText || (item.remainingKm + ' km')}}</text>
+    <text wx:if="{{item.status !== 'ok' && item.remainingKm !== null && item.remainingKm <= 0}}">已超过建议里程</text>
+    <text wx:if="{{item.status === 'ok'}}">状态良好，可继续使用</text>
+    <text wx:if="{{item.confidence === 'estimated' && item.status !== 'ok'}}" class="est">· 推算值</text>
+  </view>
+
+  <view wx:if="{{item.note}}" class="note">{{item.note}}</view>
+</view>

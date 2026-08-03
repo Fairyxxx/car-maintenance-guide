@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "保养体检",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#080b14",
+  "usingComponents": {
+    "item-card": "../../components/item-card/item-card",
+    "privacy-modal": "../../components/privacy-modal/privacy-modal"
+  }
+}

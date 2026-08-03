@@ -1,0 +1,247 @@
+<view class="page">
+  <!-- 头部概览 -->
+  <view class="hero card" wx:if="{{vehicle}}">
+    <view class="hero-top">
+      <view
+        wx:if="{{healthScore !== null}}"
+        class="gauge gauge-{{healthLevel}}"
+        style="background: conic-gradient({{healthColor}} {{healthScore}}%, rgba(255,255,255,0.06) 0);"
+      >
+        <view class="gauge-inner">
+          <text class="gauge-score">{{healthScore}}</text>
+          <text class="gauge-unit">分</text>
+          <text class="gauge-label">{{healthLabel}}</text>
+        </view>
+      </view>
+      <view class="hero-info">
+        <view class="hero-name">{{vehicle.modelName}}</view>
+        <view class="hero-km-row">
+          <text class="hero-km">{{vehicle.kmText}}</text>
+          <view class="hero-edit" bindtap="openKmModal">更新里程 ›</view>
+        </view>
+      </view>
+    </view>
+    <view class="counts">
+      <view class="count overdue">
+        <view class="num">{{summary.overdueCount}}</view>
+        <view class="lbl">立即换</view>
+      </view>
+      <view class="count soon">
+        <view class="num">{{summary.soonCount}}</view>
+        <view class="lbl">关注</view>
+      </view>
+      <view class="count ok">
+        <view class="num">{{summary.okCount}}</view>
+        <view class="lbl">不用换</view>
+      </view>
+      <view class="count skip">
+        <view class="num">{{summary.skipCount}}</view>
+        <view class="lbl">无需理会</view>
+      </view>
+    </view>
+    <!-- 下次保养预告：把「还剩多少」直接说清楚，而不是让用户自己算 -->
+    <view class="nextdue {{nextDue.status}}" wx:if="{{nextDue}}">
+      <text class="nextdue-lbl">下次保养</text>
+      <text class="nextdue-text">{{nextDue.text}}</text>
+    </view>
+    <view class="eval-time tiny">{{evaluatedText}}</view>
+  </view>
+
+  <!-- 手册依据：每条建议都挂在这本手册上 -->
+  <view class="manual card" wx:if="{{manual}}">
+    <view class="manual-badge">手册依据</view>
+    <view class="manual-body">
+      <view class="manual-title">{{manual.title}}</view>
+      <view class="manual-scope muted">{{manual.scope}}</view>
+      <view class="manual-note">{{manual.note}}</view>
+    </view>
+  </view>
+
+  <!-- 上次保养：这次到店更换了哪些项目 -->
+  <view class="lastsvc card" wx:if="{{vehicle && lastService}}">
+    <view class="lastsvc-hd">
+      <text class="lastsvc-badge">上次保养</text>
+      <text class="lastsvc-meta">{{lastService.date}} · {{lastService.kmText}}</text>
+      <text class="lastsvc-edit" bindtap="openRecordModal">补录</text>
+    </view>
+    <view class="lastsvc-items">
+      <text class="chip" wx:for="{{lastService.items}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+  <view class="lastsvc card empty" wx:elif="{{vehicle}}">
+    <view class="lastsvc-empty-row">
+      <text class="lastsvc-badge">上次保养</text>
+      <text class="lastsvc-edit" bindtap="openRecordModal">补录</text>
+    </view>
+    <view class="muted lastsvc-empty">暂无保养记录，补录后可更精准地判断该项目周期</view>
+  </view>
+
+  <!-- 全部保养记录：完整流水账，可审计自己填过哪些、分别在什么里程/日期 -->
+  <view class="his card" wx:if="{{vehicle && serviceHistory.length}}">
+    <view class="his-hd" bindtap="toggleHistory">
+      <text class="his-badge">保养记录</text>
+      <text class="his-count">{{serviceHistory.length}} 条</text>
+      <text class="caret">{{showHistory ? '收起 ▲' : '展开 ▼'}}</text>
+    </view>
+    <view wx:if="{{showHistory}}" class="his-list">
+      <view class="his-item" wx:for="{{serviceHistory}}" wx:key="index">
+        <view class="his-meta">
+          <text class="his-date">{{item.date}}</text>
+          <text class="his-km">{{item.kmText}}</text>
+        </view>
+        <view class="his-right">
+          <text class="his-name">{{item.name}}</text>
+          <view class="his-del" catchtap="deleteHistoryItem" data-rid="{{item.rid}}">删除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading && !vehicle}}" class="center muted loading">体检中…</view>
+
+  <!-- 立即更换 -->
+  <block wx:if="{{grouped.overdue.length}}">
+    <view class="section-title danger">立即更换（{{summary.overdueCount}}）</view>
+    <item-card
+      wx:for="{{grouped.overdue}}"
+      wx:key="itemKey"
+      item="{{item}}"
+      bind:select="onSelect"
+    />
+  </block>
+
+  <!-- 建议关注 -->
+  <block wx:if="{{grouped.soon.length}}">
+    <view class="section-title warn">建议关注（{{summary.soonCount}}）</view>
+    <item-card
+      wx:for="{{grouped.soon}}"
+      wx:key="itemKey"
+      item="{{item}}"
+      bind:select="onSelect"
+    />
+  </block>
+
+  <!-- 暂不用换（默认折叠，减少信息过载） -->
+  <block wx:if="{{grouped.ok.length}}">
+    <view class="section-title collapse" bindtap="toggleOk">
+      <text>暂不用换（{{summary.okCount}}）</text>
+      <text class="caret">{{showOk ? '收起 ▲' : '展开 ▼'}}</text>
+    </view>
+    <block wx:if="{{showOk}}">
+      <item-card
+        wx:for="{{grouped.ok}}"
+        wx:key="itemKey"
+        item="{{item}}"
+        bind:select="onSelect"
+      />
+    </block>
+  </block>
+
+  <!-- 无需理会（差异化输出，可分享） -->
+  <block wx:if="{{grouped.skip.length}}">
+    <view class="section-title skip-title">无需理会（{{summary.skipCount}}）</view>
+    <view class="skip-banner card">
+      <view class="skip-banner-title">这几个项目，厂商保养手册根本没要求</view>
+      <view class="skip-banner-sub muted">下次保养被推荐时，你可以有理有据地说不</view>
+    </view>
+    <item-card
+      wx:for="{{grouped.skip}}"
+      wx:key="itemKey"
+      item="{{item}}"
+      showProgress="{{false}}"
+      bind:select="onSelect"
+    />
+  </block>
+
+  <view class="disclaimer tiny">{{disclaimer}}</view>
+
+  <view class="action-bar" wx:if="{{vehicle}}">
+    <button class="btn-ghost" bindtap="goCost">保养花费</button>
+    <button class="btn-ghost" bindtap="openRemindModal">保养提醒</button>
+    <button class="btn-primary" open-type="share">分享</button>
+  </view>
+
+  <!-- 保养提醒弹层：只讲能兑现的事——到期预告 + 快捷入口 -->
+  <view class="modal-mask" wx:if="{{showRemindModal}}" bindtap="closeRemindModal">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">保养提醒</view>
+
+      <view class="remind-due {{nextDue.status}}" wx:if="{{nextDue}}">
+        <view class="remind-due-lbl">下次该保养的是</view>
+        <view class="remind-due-text">{{nextDue.text}}</view>
+      </view>
+      <view class="remind-due" wx:else>
+        <view class="remind-due-text">暂无到期项目，保持当前保养节奏即可</view>
+      </view>
+
+      <view class="remind-tip">
+        <view class="remind-tip-title">如何不错过保养</view>
+        <view class="remind-tip-row">点右上角 ··· →「添加到我的小程序」，下次在微信「发现—小程序」里一键打开</view>
+        <view class="remind-tip-row">每次加油或洗车后回来更新一次里程，结论会自动重算</view>
+      </view>
+
+      <view class="modal-actions">
+        <button class="btn-ghost" bindtap="closeRemindModal">知道了</button>
+        <button class="btn-primary" wx:if="{{subscribeReady}}" bindtap="onSubscribe">开启微信提醒</button>
+        <button class="btn-primary" wx:else bindtap="remindUpdateKm">更新里程</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 补录保养记录弹层 -->
+  <view class="modal-mask" wx:if="{{showRecordModal}}" bindtap="closeRecordModal">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">补录一次保养</view>
+      <view class="modal-sub muted">这次到店更换了哪些项目？将作为下次判定的基线</view>
+
+      <view class="field">
+        <text class="label">保养日期</text>
+        <picker mode="date" value="{{recordDate}}" bindchange="onRecordDate">
+          <view class="picker {{recordDate ? '' : 'placeholder'}}">{{recordDate || '选择日期'}}</view>
+        </picker>
+      </view>
+      <view class="field">
+        <text class="label">当时里程</text>
+        <input class="input" type="number" value="{{recordKm}}" bindinput="onRecordKm" placeholder="如 28000" />
+        <text class="unit">km</text>
+      </view>
+
+      <view class="rec-title">更换了哪些项目</view>
+      <view class="rec-items">
+        <view
+          wx:for="{{recordCandidates}}"
+          wx:key="itemKey"
+          class="rec-item {{item.checked ? 'on' : ''}}"
+          data-key="{{item.itemKey}}"
+          bindtap="toggleRecordItem"
+        >{{item.name}}</view>
+      </view>
+
+      <view class="modal-actions">
+        <button class="btn-ghost" bindtap="closeRecordModal">取消</button>
+        <button class="btn-primary" bindtap="submitRecord" disabled="{{submittingRecord}}">保存</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 更新里程弹层 -->
+  <view class="modal-mask" wx:if="{{showKmModal}}" bindtap="closeKmModal">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">更新当前里程</view>
+      <view class="modal-sub muted">里程是判定「该不该换」的核心依据，更新后结论立即刷新</view>
+      <view class="field">
+        <text class="label">当前里程</text>
+        <input class="input" type="number" value="{{kmInput}}" bindinput="onKmInput" placeholder="例如 42000" />
+        <text class="unit">km</text>
+      </view>
+      <view class="modal-actions">
+        <button class="btn-ghost" bindtap="closeKmModal">取消</button>
+        <button class="btn-primary" bindtap="submitKm" disabled="{{updatingKm}}">保存</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 隐私授权弹层：置于页面级，与首页/我的等页一致，保证授权流程任何时刻可弹出 -->
+  <privacy-modal />
+</view>
+

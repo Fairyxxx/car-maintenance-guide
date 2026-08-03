@@ -1,0 +1,1 @@
+<view class="tag {{map[status] ? map[status].cls : ''}} {{size}}">{{label || (map[status] ? map[status].text : '')}}</view>

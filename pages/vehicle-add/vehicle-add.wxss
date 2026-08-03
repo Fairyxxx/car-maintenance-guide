@@ -1,0 +1,254 @@
+/* 编辑模式横幅 */
+.edit-banner {
+  display: flex;
+  align-items: baseline;
+  gap: 14rpx;
+  padding: 18rpx 22rpx;
+  margin-bottom: 20rpx;
+  background: rgba(0, 240, 255, 0.06);
+  border: 1rpx solid rgba(0, 240, 255, 0.22);
+  border-radius: 14rpx;
+}
+.eb-label {
+  font-size: 22rpx;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+.eb-name {
+  font-size: 30rpx;
+  font-weight: 800;
+  color: var(--c-primary);
+  text-shadow: 0 0 12rpx rgba(0, 240, 255, 0.25);
+}
+
+/* 底部给固定操作栏让出空间，否则「只填…即可生成报告」提示会被遮挡 */
+.page {
+  padding-bottom: 200rpx;
+}
+
+/* 搜索框 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1rpx solid var(--card-border);
+  border-radius: 999rpx;
+  padding: 0 24rpx;
+  height: 72rpx;
+  margin-bottom: 16rpx;
+}
+.search-bar:focus-within {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 16rpx rgba(0, 240, 255, 0.12);
+}
+.search-icon {
+  font-size: 26rpx;
+  margin-right: 12rpx;
+  opacity: 0.7;
+}
+.search-input {
+  flex: 1;
+  font-size: 26rpx;
+  color: var(--text);
+}
+.search-ph {
+  color: var(--text-3);
+  font-size: 24rpx;
+}
+
+/* 车型列表 */
+.model-list {
+  max-height: 56vh;
+  overflow-y: auto;
+}
+.brand-group {
+  margin-bottom: 8rpx;
+}
+.brand-head {
+  position: sticky;
+  top: 0;
+  font-size: 22rpx;
+  font-weight: 700;
+  color: var(--c-primary);
+  letter-spacing: 0.1em;
+  padding: 14rpx 8rpx 10rpx;
+  background: var(--bg);
+  z-index: 2;
+}
+.brand-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+.model {
+  width: calc(33.33% - 8rpx);
+  background: rgba(15, 23, 42, 0.6);
+  border: 1rpx solid var(--card-border);
+  border-radius: 12rpx;
+  padding: 16rpx 18rpx;
+}
+.model.active {
+  border-color: var(--c-primary);
+  background: rgba(0, 240, 255, 0.08);
+  box-shadow: 0 0 16rpx rgba(0, 240, 255, 0.12);
+}
+.model-name {
+  font-size: 26rpx;
+  font-weight: 700;
+}
+.model-engine {
+  font-size: 20rpx;
+  color: var(--text-3);
+  margin-top: 4rpx;
+}
+
+/* 表单 */
+.card.form {
+  padding: 8rpx 24rpx;
+}
+.field {
+  display: flex;
+  align-items: center;
+  min-height: 92rpx;
+}
+.label {
+  width: 280rpx;
+  font-size: 26rpx;
+  color: var(--text-2);
+}
+.opt {
+  color: var(--text-3);
+  font-size: 22rpx;
+}
+.input {
+  flex: 1;
+  text-align: right;
+  font-size: 28rpx;
+  color: var(--text);
+}
+.unit {
+  width: 56rpx;
+  text-align: right;
+  color: var(--text-2);
+  font-size: 24rpx;
+}
+.divider {
+  height: 2rpx;
+  background: var(--line);
+}
+.picker {
+  flex: 1;
+  text-align: right;
+  font-size: 26rpx;
+  color: var(--text);
+}
+.picker.placeholder {
+  color: var(--text-3);
+}
+
+/* 工况 */
+.usage {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+.usage-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1rpx solid var(--card-border);
+  border-radius: 14rpx;
+  padding: 20rpx 24rpx;
+}
+.usage-check {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 2rpx solid var(--line);
+  color: #020617;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.usage-check.on {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  box-shadow: 0 0 12rpx rgba(0, 240, 255, 0.35);
+}
+.usage-name {
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.tip {
+  margin: 24rpx 8rpx;
+  font-size: 22rpx;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+
+/* 手动建档兜底入口 */
+.manual-link {
+  margin: 16rpx 8rpx 0;
+  font-size: 24rpx;
+  color: var(--c-primary);
+  text-align: right;
+}
+.manual-entry {
+  padding: 8rpx 24rpx;
+}
+.manual-entry-hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0 8rpx;
+}
+.manual-entry-title {
+  font-size: 28rpx;
+  font-weight: 800;
+}
+.manual-entry-back {
+  font-size: 24rpx;
+  color: var(--c-primary);
+}
+.field.col {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 18rpx 0;
+}
+.field.col .label {
+  width: auto;
+  margin-bottom: 14rpx;
+}
+.field.col .input {
+  text-align: left;
+}
+.pt-row {
+  display: flex;
+  gap: 16rpx;
+}
+.pt {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  font-weight: 700;
+  padding: 16rpx 0;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1rpx solid var(--card-border);
+  border-radius: 12rpx;
+  color: var(--text-2);
+}
+.pt.on {
+  color: var(--c-primary);
+  border-color: var(--c-primary);
+  background: rgba(0, 240, 255, 0.08);
+  box-shadow: 0 0 16rpx rgba(0, 240, 255, 0.12);
+}
+.manual-note {
+  font-size: 22rpx;
+  line-height: 1.6;
+  padding: 12rpx 0 8rpx;
+}

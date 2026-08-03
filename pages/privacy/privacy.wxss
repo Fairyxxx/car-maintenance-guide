@@ -1,0 +1,44 @@
+.hero {
+  margin-bottom: 20rpx;
+}
+.hero-name {
+  font-size: 36rpx;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+}
+
+.sec {
+  margin-bottom: 16rpx;
+}
+.sec-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--c-primary, #00f0ff);
+  margin-bottom: 14rpx;
+}
+.sec-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
+}
+.sec-item:last-child {
+  margin-bottom: 0;
+}
+.dot {
+  color: var(--c-primary, #00f0ff);
+  margin-right: 12rpx;
+  flex-shrink: 0;
+  line-height: 1.7;
+}
+.txt {
+  flex: 1;
+  font-size: 25rpx;
+  line-height: 1.7;
+  color: var(--text-2, #94a3b8);
+}

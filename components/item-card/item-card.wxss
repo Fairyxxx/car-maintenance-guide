@@ -1,0 +1,67 @@
+.item-card {
+  background: var(--card);
+  border-radius: 14rpx;
+  padding: 22rpx;
+  margin-bottom: 14rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.05);
+  border-left: 6rpx solid transparent;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.18), inset 0 1rpx 0 rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+.item-card.hover {
+  background: rgba(15, 23, 42, 0.88);
+}
+.item-card.overdue {
+  border-left-color: var(--c-overdue);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.18), 0 0 18rpx rgba(255, 77, 109, 0.12), inset 0 1rpx 0 rgba(255, 255, 255, 0.03);
+}
+.item-card.soon {
+  border-left-color: var(--c-soon);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.18), 0 0 18rpx rgba(251, 191, 36, 0.1), inset 0 1rpx 0 rgba(255, 255, 255, 0.03);
+}
+.item-card.ok {
+  border-left-color: var(--c-ok);
+}
+.item-card.skip {
+  border-left-color: var(--c-skip);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.name {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+.progress-wrap {
+  height: 8rpx;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999rpx;
+  margin: 16rpx 0 10rpx;
+  overflow: hidden;
+}
+.bar {
+  height: 100%;
+  border-radius: 999rpx;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 12rpx currentColor;
+}
+.bar-overdue { background: var(--c-overdue); color: var(--c-overdue); }
+.bar-soon { background: var(--c-soon); color: var(--c-soon); }
+.bar-ok { background: var(--c-ok); color: var(--c-ok); }
+
+.meta {
+  font-size: 22rpx;
+  color: var(--text-2);
+}
+.est { color: var(--c-soon); margin-left: 6rpx; }
+
+.note {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: var(--text-3);
+  line-height: 1.5;
+}

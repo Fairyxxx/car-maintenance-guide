@@ -1,0 +1,120 @@
+/* app.wxss —— 全局样式与科技风主题变量 */
+page {
+  /* 科技霓虹强调色 */
+  --c-primary: #00f0ff;   /* 青色霓虹 */
+  --c-accent: #8b5cf6;    /* 紫色 */
+  --c-overdue: #ff4d6d;   /* 立即更换 - 霓虹红 */
+  --c-soon: #fbbf24;      /* 建议关注 - 琥珀 */
+  --c-ok: #34d399;        /* 暂不用换 - 翡翠绿 */
+  --c-skip: #64748b;      /* 无需理会 - slate 灰 */
+
+  --bg: #080b14;
+  --bg-elevated: #0f172a;
+  --card: rgba(15, 23, 42, 0.72);
+  --card-border: rgba(0, 240, 255, 0.12);
+  --line: rgba(148, 163, 184, 0.12);
+  --text: #f8fafc;
+  --text-2: #94a3b8;
+  --text-3: #64748b;
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "DIN Alternate", "SF Pro Display", sans-serif;
+  font-size: 26rpx;
+  line-height: 1.5;
+}
+
+view, text, scroll-view, button {
+  box-sizing: border-box;
+}
+
+/* 通用容器 */
+.page {
+  min-height: 100vh;
+  padding: 20rpx 20rpx calc(40rpx + env(safe-area-inset-bottom));
+}
+
+.card {
+  background: var(--card);
+  border: 1rpx solid var(--card-border);
+  border-radius: 16rpx;
+  padding: 22rpx;
+  box-shadow: 0 0 24rpx rgba(0, 240, 255, 0.06), inset 0 1rpx 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8rpx);
+}
+
+/* 通用按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, #00f0ff 0%, #0ea5e9 100%);
+  color: #020617;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  box-shadow: 0 4rpx 20rpx rgba(0, 240, 255, 0.22);
+}
+.btn-primary[disabled] {
+  background: rgba(0, 240, 255, 0.25);
+  color: rgba(2, 6, 23, 0.45);
+  box-shadow: none;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--c-primary);
+  border: 2rpx solid rgba(0, 240, 255, 0.35);
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.btn-ghost::after {
+  border: none;
+}
+
+/* 文本工具 */
+.muted { color: var(--text-2); }
+.tiny { font-size: 22rpx; color: var(--text-3); }
+.bold { font-weight: 700; }
+.center { text-align: center; }
+
+/* 区块标题 */
+.section-title {
+  font-size: 24rpx;
+  color: var(--text-2);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 28rpx 8rpx 14rpx;
+}
+
+/* 底部固定操作栏 */
+.action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 20rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: rgba(8, 11, 20, 0.92);
+  border-top: 1rpx solid var(--line);
+  backdrop-filter: blur(16rpx);
+  display: flex;
+  gap: 16rpx;
+  z-index: 50;
+}
+.action-bar .btn-primary,
+.action-bar .btn-ghost {
+  flex: 1;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+}
+
+/* 重置小程序 button 默认样式 */
+button {
+  padding: 0;
+  margin: 0;
+  line-height: normal;
+  background: transparent;
+  font-size: inherit;
+}
+button::after {
+  border: none;
+}

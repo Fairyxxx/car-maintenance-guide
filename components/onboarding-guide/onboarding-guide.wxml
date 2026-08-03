@@ -1,0 +1,54 @@
+<view class="onb-mask" wx:if="{{show}}">
+  <view class="onb-bg-glow"></view>
+
+  <view class="onb-skip" bindtap="finish">跳过</view>
+
+  <swiper
+    class="onb-swiper"
+    current="{{current}}"
+    bindchange="onChange"
+    circular="{{false}}"
+  >
+    <swiper-item wx:for="{{slides}}" wx:key="key" wx:for-item="slide">
+      <view class="onb-slide">
+        <view class="onb-icon onb-icon-{{slide.key}}">{{slide.icon}}</view>
+        <view class="onb-title">{{slide.title}}</view>
+        <view class="onb-desc">{{slide.desc}}</view>
+
+        <view wx:if="{{slide.steps.length}}" class="onb-steps">
+          <view
+            class="onb-step"
+            wx:for="{{slide.steps}}"
+            wx:for-item="s"
+            wx:for-index="si"
+            wx:key="*this"
+          >
+            <text class="onb-step-num">{{si + 1}}</text>
+            <text class="onb-step-text">{{s}}</text>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="onb-dots">
+    <view
+      class="onb-dot {{index === current ? 'on' : ''}}"
+      wx:for="{{slides}}"
+      wx:key="key"
+    ></view>
+  </view>
+
+  <view class="onb-actions">
+    <button
+      wx:if="{{current < slides.length - 1}}"
+      class="btn onb-btn-ghost"
+      bindtap="next"
+    >下一步</button>
+    <button
+      wx:else
+      class="btn onb-btn-primary"
+      bindtap="finish"
+    >开始使用</button>
+  </view>
+</view>

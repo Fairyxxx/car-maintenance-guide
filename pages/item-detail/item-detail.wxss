@@ -1,0 +1,145 @@
+.head {
+  margin-bottom: 20rpx;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.name {
+  font-size: 38rpx;
+  font-weight: 700;
+}
+.status-text {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.status-text.overdue { color: var(--c-overdue); }
+.status-text.soon { color: var(--c-soon); }
+.status-text.ok { color: var(--c-ok); }
+.status-text.skip { color: var(--c-skip); }
+
+.metrics {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+.metric {
+  flex: 1;
+  text-align: center;
+  border-right: 2rpx solid var(--line);
+}
+.metric:last-child {
+  border-right: none;
+}
+.metric-val {
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.metric-lbl {
+  font-size: 22rpx;
+  color: var(--text-2);
+  margin-top: 6rpx;
+}
+
+/* 已用周期进度条：让"该不该换"的进度一目了然 */
+.prog {
+  margin-bottom: 20rpx;
+}
+.prog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14rpx;
+}
+.prog-lbl {
+  font-size: 26rpx;
+  color: var(--text-2);
+}
+.prog-pct {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+.prog-pct.overdue { color: var(--c-overdue); }
+.prog-pct.soon { color: var(--c-soon); }
+.prog-pct.ok { color: var(--c-ok); }
+.prog-track {
+  height: 14rpx;
+  border-radius: 999rpx;
+  background: rgba(148, 163, 184, 0.16);
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  border-radius: 999rpx;
+  transition: width 0.4s ease;
+  background: linear-gradient(90deg, var(--c-ok), #22d3ee);
+}
+.prog-fill.overdue { background: linear-gradient(90deg, var(--c-overdue), #ff7a93); }
+.prog-fill.soon { background: linear-gradient(90deg, var(--c-soon), #fcd34d); }
+.prog-fill.ok { background: linear-gradient(90deg, var(--c-ok), #6ee7b7); }
+
+/* 相关避坑卡片：把结论与科普打通 */
+.related {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  border-left: 4rpx solid var(--c-primary);
+}
+.related-lbl {
+  font-size: 22rpx;
+  color: var(--c-primary);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0 18rpx;
+  white-space: nowrap;
+}
+.related-title {
+  flex: 1;
+  font-size: 27rpx;
+  font-weight: 600;
+}
+.related-go {
+  font-size: 26rpx;
+  color: var(--c-primary);
+  padding-right: 8rpx;
+  white-space: nowrap;
+}
+
+.facts {
+  margin-bottom: 20rpx;
+}
+.fact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 88rpx;
+  border-bottom: 2rpx solid var(--line);
+}
+.fact:last-child {
+  border-bottom: none;
+}
+.fact-lbl {
+  color: var(--text-2);
+  font-size: 28rpx;
+}
+.fact-val {
+  font-size: 28rpx;
+  font-weight: 600;
+  max-width: 60%;
+  text-align: right;
+}
+
+.note {
+  margin-bottom: 20rpx;
+}
+.note-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+.note-body {
+  font-size: 26rpx;
+  color: var(--text-2);
+  line-height: 1.7;
+}

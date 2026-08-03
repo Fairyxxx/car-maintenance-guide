@@ -1,0 +1,248 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.14), rgba(139, 92, 246, 0.16));
+  border-color: rgba(0, 240, 255, 0.28);
+  box-shadow: 0 0 28rpx rgba(0, 240, 255, 0.1), inset 0 1rpx 0 rgba(255, 255, 255, 0.05);
+}
+.hero-glow {
+  position: absolute;
+  top: -120rpx;
+  right: -80rpx;
+  width: 360rpx;
+  height: 360rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.28), transparent 70%);
+  pointer-events: none;
+}
+.hero-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+.hero-titles {
+  min-width: 0;
+}
+.hero-title {
+  font-size: 42rpx;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 24rpx;
+  color: var(--text-2);
+  margin-top: 8rpx;
+  letter-spacing: 0.02em;
+}
+.hero-badge {
+  flex: none;
+  font-size: 20rpx;
+  font-weight: 700;
+  color: #021014;
+  background: linear-gradient(135deg, #00f0ff, #38bdf8);
+  border-radius: 999rpx;
+  padding: 6rpx 18rpx;
+  letter-spacing: 0.04em;
+}
+.hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+  margin-top: 20rpx;
+}
+.trust {
+  font-size: 21rpx;
+  color: var(--text-2);
+  background: rgba(2, 6, 23, 0.4);
+  border: 1rpx solid rgba(255, 255, 255, 0.06);
+  border-radius: 999rpx;
+  padding: 6rpx 18rpx;
+}
+.loading {
+  padding: 120rpx 0;
+}
+.empty {
+  text-align: center;
+  padding: 64rpx 44rpx;
+  margin-top: 32rpx;
+}
+.empty-icon {
+  font-size: 64rpx;
+  font-weight: 800;
+  color: var(--c-primary);
+  letter-spacing: -4rpx;
+  text-shadow: 0 0 24rpx rgba(0, 240, 255, 0.35);
+}
+.empty-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-top: 16rpx;
+}
+.empty-desc {
+  font-size: 24rpx;
+  margin: 12rpx 0 32rpx;
+}
+.empty-trust {
+  margin: 0 0 8rpx;
+  line-height: 1.6;
+}
+
+.vcard {
+  margin-bottom: 16rpx;
+  position: relative;
+  overflow: hidden;
+}
+.vcard.hover {
+  background: rgba(15, 23, 42, 0.88);
+  border-color: rgba(0, 240, 255, 0.25);
+}
+.vcard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16rpx;
+}
+.vcard-main {
+  flex: 1;
+  min-width: 0;
+}
+.vcard-name {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+.vcard-engine {
+  font-size: 22rpx;
+  color: var(--text-3);
+  margin-top: 4rpx;
+}
+.vcard-km {
+  font-size: 26rpx;
+  color: var(--c-primary);
+  font-weight: 700;
+  font-family: "DIN Alternate", "SF Pro Display", "PingFang SC", sans-serif;
+  margin-top: 10rpx;
+  text-shadow: 0 0 12rpx rgba(0, 240, 255, 0.28);
+}
+
+/* 车辆卡片上的健康度小环：conic-gradient 实时绘制，降级为纯色圆仍可读 */
+.gauge-sm {
+  flex: none;
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18rpx rgba(0, 0, 0, 0.25);
+}
+.gauge-sm.bad { box-shadow: 0 0 20rpx rgba(255, 77, 109, 0.28); }
+.gauge-sm.warn { box-shadow: 0 0 20rpx rgba(251, 191, 36, 0.24); }
+.gauge-sm.good { box-shadow: 0 0 20rpx rgba(52, 211, 153, 0.24); }
+.gauge-sm-inner {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gauge-sm-score {
+  font-size: 30rpx;
+  font-weight: 800;
+  font-family: "DIN Alternate", "SF Pro Display", "PingFang SC", sans-serif;
+  color: var(--text);
+  line-height: 1;
+}
+.vcard-health-tag {
+  flex: none;
+  margin-left: 14rpx;
+  font-size: 20rpx;
+  font-weight: 700;
+  padding: 2rpx 14rpx;
+  border-radius: 999rpx;
+}
+.vcard-health-tag.bad { color: #ffcbd3; background: rgba(255, 77, 109, 0.18); }
+.vcard-health-tag.warn { color: #fef3c7; background: rgba(251, 191, 36, 0.15); }
+.vcard-health-tag.good { color: #d1fae5; background: rgba(52, 211, 153, 0.15); }
+.vcard-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.vcard-status {
+  margin-top: 14rpx;
+  font-size: 22rpx;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+}
+.vcard-status.alert {
+  color: var(--c-overdue);
+  font-weight: 600;
+}
+.vcard-actions {
+  margin-top: 18rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+/* 首页卡片「最近保养预告」：从缓存结论的 nextDue 提取，让车主一眼看到最近要处理的项目 */
+.vcard-nextdue {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: var(--text-3);
+  letter-spacing: 0.01em;
+}
+.vcard-nextdue-dot {
+  flex: none;
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--c-primary);
+  box-shadow: 0 0 10rpx var(--c-primary);
+}
+.vcard-nextdue.overdue { color: var(--c-overdue); }
+.vcard-nextdue.overdue .vcard-nextdue-dot { background: var(--c-overdue); box-shadow: 0 0 10rpx var(--c-overdue); }
+.vcard-nextdue.soon { color: var(--c-soon); }
+.vcard-nextdue.soon .vcard-nextdue-dot { background: var(--c-soon); box-shadow: 0 0 10rpx var(--c-soon); }
+.vcard-nextdue.ok .vcard-nextdue-dot { background: var(--c-ok); box-shadow: 0 0 10rpx var(--c-ok); }
+.vcard-cta {
+  flex: 1;
+  font-size: 24rpx;
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+.vcard-edit {
+  flex: none;
+  font-size: 24rpx;
+  color: var(--c-primary);
+  padding: 8rpx 22rpx;
+  border: 1rpx solid rgba(0, 240, 255, 0.35);
+  border-radius: 999rpx;
+}
+.vcard-edit:active {
+  background: rgba(0, 240, 255, 0.1);
+}
+.cta-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--c-ok);
+  box-shadow: 0 0 10rpx var(--c-ok);
+}
+.add-btn {
+  margin-top: 8rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+}

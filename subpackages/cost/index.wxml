@@ -1,0 +1,100 @@
+<view class="page">
+  <view class="hero card">
+    <view class="hero-glow"></view>
+    <view class="hero-row">
+      <view class="hero-titles">
+        <view class="hero-title">{{vehicleName || '保养花费'}}</view>
+        <view class="hero-sub">每笔保养都记下来，钱花在哪一目了然</view>
+      </view>
+    </view>
+    <view class="stats">
+      <view class="stat">
+        <view class="stat-num">{{totalText}}</view>
+        <view class="stat-lbl">累计支出</view>
+      </view>
+      <view class="stat">
+        <view class="stat-num">{{thisYearText}}</view>
+        <view class="stat-lbl">今年支出</view>
+      </view>
+      <view class="stat">
+        <view class="stat-num">{{count}}</view>
+        <view class="stat-lbl">记录笔数</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">近 6 个月支出</view>
+  <view class="chart card">
+    <view wx:if="{{count === 0}}" class="chart-empty muted">还没有记录，添加第一笔保养花费吧</view>
+    <view wx:else class="bars">
+      <view wx:for="{{byMonth}}" wx:key="key" class="bar-col">
+        <view class="bar-amt">{{item.amountShort}}</view>
+        <view class="bar-wrap">
+          <view class="bar" style="height: {{item.amount ? (item.amount / max * 100) : 0}}%;"></view>
+        </view>
+        <view class="bar-lbl">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">花费明细</view>
+  <view wx:if="{{count === 0}}" class="empty muted center">暂无记录</view>
+  <view wx:for="{{costs}}" wx:key="costId" class="crow card">
+    <view class="crow-top">
+      <view class="crow-amt">{{item.amountText}}</view>
+      <view class="crow-del" catchtap="onDelete" data-id="{{item.costId}}">删除</view>
+    </view>
+    <view class="crow-meta">
+      <text class="crow-date">{{item.date}}</text>
+      <text wx:if="{{item.kmText}}" class="crow-km">{{item.kmText}}</text>
+    </view>
+    <view wx:if="{{item.shop}}" class="crow-shop">📍 {{item.shop}}</view>
+    <view wx:if="{{item.note}}" class="crow-note muted">{{item.note}}</view>
+  </view>
+
+  <view class="action-bar">
+    <button class="btn-primary" bindtap="openAdd">+ 记一笔保养花费</button>
+  </view>
+
+  <!-- 记一笔弹层 -->
+  <view class="modal-mask" wx:if="{{showAdd}}" bindtap="closeAdd">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">记一笔保养花费</view>
+      <view class="modal-sub muted">金额为必填，其余选填。数据只存本机，不上传云端。</view>
+      <view class="field">
+        <text class="label">日期</text>
+        <picker mode="date" value="{{date}}" bindchange="onDate">
+          <view class="picker {{date ? '' : 'placeholder'}}">{{date || '选择日期'}}</view>
+        </picker>
+      </view>
+      <view class="divider"></view>
+      <view class="field">
+        <text class="label">金额</text>
+        <input class="input" type="digit" value="{{amount}}" bindinput="onAmount" placeholder="如 680" />
+        <text class="unit">元</text>
+      </view>
+      <view class="divider"></view>
+      <view class="field">
+        <text class="label">当时里程</text>
+        <input class="input" type="number" value="{{km}}" bindinput="onKm" placeholder="选填" />
+        <text class="unit">km</text>
+      </view>
+      <view class="divider"></view>
+      <view class="field">
+        <text class="label">门店</text>
+        <input class="input" value="{{shop}}" bindinput="onShop" placeholder="选填" />
+      </view>
+      <view class="divider"></view>
+      <view class="field">
+        <text class="label">备注</text>
+        <input class="input" value="{{note}}" bindinput="onNote" placeholder="选填，如 大保养含机油机滤" />
+      </view>
+      <view class="modal-actions">
+        <button class="btn-ghost" bindtap="closeAdd">取消</button>
+        <button class="btn-primary" bindtap="submit" disabled="{{submitting}}">保存</button>
+      </view>
+    </view>
+  </view>
+
+  <privacy-modal />
+</view>

@@ -1,0 +1,78 @@
+<view class="page">
+  <view class="banner card">
+    <view class="banner-title">别再为花冤枉钱的项目买单</view>
+    <view class="banner-sub">真实保养知识库 · 已收录 {{articles.length}} 篇，帮你有理有据说不</view>
+    <button class="banner-share" open-type="share">分享给车友</button>
+  </view>
+
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input
+      class="search-input"
+      placeholder="搜你想避的坑，如「机油」「变速箱」"
+      placeholder-class="search-ph"
+      value="{{keyword}}"
+      bindinput="onSearch"
+    />
+    <text wx:if="{{keyword}}" class="search-clear" catchtap="clearSearch">✕</text>
+  </view>
+
+  <!-- 分类筛选：全部 / 我的收藏 / 按文章主分类聚合 -->
+  <view class="chips">
+    <view class="chip {{activeCat === '' ? 'on' : ''}}" data-cat="" bindtap="setCat">全部</view>
+    <view class="chip fav {{activeCat === 'fav' ? 'on' : ''}}" data-cat="fav" bindtap="setCat">★ 收藏 {{favCount}}</view>
+    <view
+      wx:for="{{cats}}"
+      wx:key="tag"
+      class="chip {{activeCat === item.tag ? 'on' : ''}}"
+      data-cat="{{item.tag}}"
+      bindtap="setCat"
+    >{{item.tag}} {{item.count}}</view>
+  </view>
+
+  <view class="section-title">热门避坑</view>
+
+  <view wx:if="{{filteredArticles.length === 0}}" class="center muted empty-search">
+    没有找到相关避坑，换个关键词试试
+  </view>
+
+  <view
+    wx:for="{{filteredArticles}}"
+    wx:key="id"
+    class="article card"
+    id="article-{{item.id}}"
+    data-id="{{item.id}}"
+    bindtap="toggle"
+    hover-class="hover"
+  >
+    <view class="article-head">
+      <text class="tag">{{item.tag}}</text>
+      <text class="article-title">{{item.title}}</text>
+      <view class="fav-btn {{item.faved ? 'on' : ''}}" catchtap="toggleFav" data-id="{{item.id}}">{{item.faved ? '★' : '☆'}}</view>
+      <text class="caret">{{expanded[item.id] ? '收起 ▲' : '展开 ▼'}}</text>
+    </view>
+    <view class="article-desc">{{item.desc}}</view>
+
+    <view wx:if="{{expanded[item.id]}}" class="article-body">
+      <block wx:for="{{item.body}}" wx:for-item="b" wx:key="index">
+        <view wx:if="{{b.t === 'h'}}" class="b-h">{{b.v}}</view>
+        <view wx:elif="{{b.t === 'p'}}" class="b-p">{{b.v}}</view>
+        <view wx:elif="{{b.t === 'warn'}}" class="callout co-warn">
+          <text class="co-tag">避坑</text>
+          <text class="co-txt">{{b.v}}</text>
+        </view>
+        <view wx:elif="{{b.t === 'tip'}}" class="callout co-tip">
+          <text class="co-tag">建议</text>
+          <text class="co-txt">{{b.v}}</text>
+        </view>
+        <view wx:elif="{{b.t === 'key'}}" class="callout co-key">
+          <text class="co-tag">结论</text>
+          <text class="co-txt">{{b.v}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 隐私授权弹层：置于文章循环之外，全页仅渲染 1 次 -->
+  <privacy-modal />
+</view>

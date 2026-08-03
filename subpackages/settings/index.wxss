@@ -1,0 +1,61 @@
+.privacy-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 12rpx 0;
+  border-bottom: 2rpx solid var(--line);
+}
+.privacy-item:last-child {
+  border-bottom: none;
+}
+.dot {
+  color: var(--c-primary);
+  font-weight: 700;
+  margin-right: 12rpx;
+  text-shadow: 0 0 8rpx rgba(0, 240, 255, 0.35);
+}
+.privacy-text {
+  flex: 1;
+  font-size: 24rpx;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.about {
+  margin-bottom: 8rpx;
+}
+.about-name {
+  font-size: 30rpx;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.about-row {
+  font-size: 24rpx;
+  color: var(--text-2);
+  margin-top: 10rpx;
+}
+
+.clear {
+  height: 76rpx;
+  line-height: 76rpx;
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 22rpx;
+  margin: 16rpx 0;
+  background: var(--card);
+  border: 2rpx solid var(--card-border);
+  border-radius: 16rpx;
+}
+.entry-label {
+  font-size: 27rpx;
+  color: var(--text);
+}
+.entry-arrow {
+  font-size: 32rpx;
+  color: var(--text-3);
+}

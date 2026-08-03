@@ -1,0 +1,49 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "car-maintenance-guide",
+  "appid": "touristappid",
+  "description": "Car maintenance guide mini program",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "bigPackageSizeSupport": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "compileType": "miniprogram",
+  "libVersion": "latest",
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": ".workbuddy" },
+      { "type": "folder", "value": ".vscode" },
+      { "type": "folder", "value": "docs" },
+      { "type": "suffix", "value": ".tmp.js" },
+      { "type": "prefix", "value": "verify_" },
+      { "type": "regexp", "value": "logo-[0-9]+\\.png$|logo\\.svg$" }
+    ],
+    "include": []
+  },
+  "editorSetting": {}
+}
