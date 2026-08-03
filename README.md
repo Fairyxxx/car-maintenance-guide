@@ -1,5 +1,7 @@
 # Car Maintenance Guide Mini Program
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 A zero-backend WeChat Mini Program for car maintenance reminders and maintenance-cost awareness. The app runs its rule engine on-device and stores user-entered vehicle data in local WeChat storage.
 
 ## Features
