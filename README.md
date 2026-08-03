@@ -2,43 +2,50 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-A zero-backend WeChat Mini Program for car maintenance reminders and maintenance-cost awareness. The app runs its rule engine on-device and stores user-entered vehicle data in local WeChat storage.
+A native WeChat Mini Program that helps car owners understand routine maintenance timing, track vehicle records, and avoid unnecessary maintenance upsells. It runs entirely on the client side, with an on-device rule engine and local WeChat storage.
 
 ## Features
 
-- Vehicle profile creation and maintenance checklist generation
-- On-device rule engine, no cloud functions or external server required
-- Local storage only for vehicles, mileage, maintenance records, and favorites
-- Maintenance item detail pages with status, evidence, and disclaimer text
-- Articles about common maintenance pitfalls
-- Privacy page and privacy authorization component for WeChat review flow
+- Create vehicle profiles with model, mileage, and usage conditions
+- Generate maintenance checklists from built-in rule sets
+- View maintenance item status, reasoning, and reference notes
+- Record maintenance history and cost entries locally
+- Browse practical articles about common maintenance pitfalls
+- Use without a backend server, cloud functions, or database
+
+## Tech Stack
+
+- WeChat Mini Program native framework
+- JavaScript
+- WXML
+- WXSS
+- WeChat local storage through `wx.storage`
+- Client-side rule engine in `utils/engine.js`
 
 ## Getting Started
 
-1. Open WeChat DevTools.
+1. Install and open WeChat DevTools.
 2. Import this repository as a Mini Program project.
-3. Use `touristappid` for local preview, or replace the `appid` in `project.config.json` with your own Mini Program AppID before uploading.
-4. Compile and preview in WeChat DevTools.
+3. Use `touristappid` for local development, or replace the `appid` in `project.config.json` with your own Mini Program AppID.
+4. Click Compile in WeChat DevTools.
+5. Preview the app in the simulator or on a real device.
 
-## Privacy
+## Project Structure
 
-This open-source version has the original AppID and local development settings removed. The app is designed to run without a backend and does not include server credentials, cloud environment IDs, or API tokens.
+```text
+.
+├── app.js / app.json / app.wxss
+├── assets/
+├── components/
+├── data/
+├── pages/
+├── subpackages/
+└── utils/
+```
 
-Before publishing your own version, review:
+## Notes
 
-- `project.config.json`
-- `privacy.json`
-- `pages/privacy/privacy.*`
-- WeChat public platform privacy settings
-
-## Repository Hygiene
-
-The following files are intentionally not included or ignored:
-
-- `.workbuddy/`: local task and agent history
-- `.vscode/`: local editor settings
-- `project.private.config.json`: WeChat DevTools personal settings
-- `.env*`, private keys, and temporary verification scripts
+This project is designed as a zero-backend Mini Program. Vehicle data, mileage, maintenance records, and favorites are stored on the user's device through WeChat local storage.
 
 ## License
 
